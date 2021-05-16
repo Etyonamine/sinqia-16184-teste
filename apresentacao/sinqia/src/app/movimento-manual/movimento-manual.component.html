@@ -1,0 +1,353 @@
+<div [hidden]="!movimentosManuais">
+  <mat-card>
+    <div>
+      <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+        <mat-card-header>
+          <h2>Cadastro de movimento manual</h2>
+        </mat-card-header>
+        <div class="container">
+          <!--mensagens de erros *****************-->
+          <mat-card-content>
+            <div>
+              <div>
+                <!-- MES *******************************-->
+                <app-msg-erro
+                  [mostrarErro]="
+                    formulario.get('Dat_Mes').hasError('required') &&
+                    formulario.get('Dat_Mes').touched &&
+                    operacaoInclusao
+                  "
+                  mensagemErro="Por favor, informe o mês de movimento!"
+                ></app-msg-erro>
+                <app-msg-erro
+                  [mostrarErro]="
+                    formulario.get('Dat_Mes').hasError('maxlength')  &&
+                    operacaoInclusao
+                  "
+                  mensagemErro="Por favor, o mês com o máximo de 2 digito."
+                >
+                </app-msg-erro>
+                <app-msg-erro
+                  [mostrarErro]="
+                    (formulario.get('Dat_Mes').hasError('min') ||
+                    formulario.get('Dat_Mes').hasError('max')) &&
+                    operacaoInclusao
+                  "
+                  mensagemErro="Por favor, informe apenas o mês entre 1 a 12."
+                >
+                </app-msg-erro>
+              </div>
+              <!-- ANO *******************************-->
+              <div>
+                <app-msg-erro
+                  [mostrarErro]="
+                    formulario.get('Dat_Ano').hasError('required') &&
+                    formulario.get('Dat_Ano').touched  &&
+                    operacaoInclusao
+                  "
+                  mensagemErro="Por favor, informe o ano de movimento!"
+                ></app-msg-erro>
+                <app-msg-erro
+                  [mostrarErro]="
+                    formulario.get('Dat_Ano').hasError('maxlength')  &&
+                    operacaoInclusao
+                  "
+                  mensagemErro="Por favor, informe o ano com o máximo de 4 digitos."
+                >
+                </app-msg-erro>
+                <app-msg-erro
+                  [mostrarErro]="
+                    (formulario.get('Dat_Ano').hasError('min') ||
+                    formulario.get('Dat_Ano').hasError('max'))  &&
+                    operacaoInclusao
+                  "
+                  mensagemErro="Por favor, informe apenas o ano válido."
+                >
+                </app-msg-erro>
+              </div>
+              <!-- PRODUTO *******************************-->
+              <div>
+                <app-msg-erro
+                  [mostrarErro]="
+                    formulario.get('Cod_Produto').hasError('required') &&
+                    formulario.get('Cod_Produto').touched  &&
+                    operacaoInclusao
+                  "
+                  mensagemErro="Por favor, informe um produto do movimento!"
+                ></app-msg-erro>
+              </div>
+              <!-- COSIF *******************************-->
+              <div>
+                <app-msg-erro
+                [mostrarErro]="
+                  formulario.get('Cod_Cosif').hasError('required') &&
+                  formulario.get('Cod_Cosif').touched  &&
+                  operacaoInclusao
+                "
+                mensagemErro="Por favor, informe um código Cosif do movimento!"
+                ></app-msg-erro>
+              </div>
+              <!--Valor *******************************-->
+              <div>
+                <app-msg-erro
+                [mostrarErro]="
+                  formulario.get('Val_Valor').hasError('required') &&
+                  formulario.get('Val_Valor').touched  &&
+                  operacaoInclusao
+                "
+                mensagemErro="Por favor, informe o valor do movimento!"
+                ></app-msg-erro>
+              </div>
+              <!-- Descrição *******************************-->
+              <div>
+
+                  <app-msg-erro
+                  [mostrarErro]="
+                    formulario.get('Des_Descricao').hasError('required') &&
+                    formulario.get('Des_Descricao').touched  &&
+                    operacaoInclusao
+                  "
+                  mensagemErro="Por favor, informe a descrição do movimento!"
+                ></app-msg-erro>
+             </div>
+
+            </div>
+          </mat-card-content>
+
+          <!--- Campos do Formulario ++++++++++++++++++++++++++++++++++++-->
+          <mat-card-content>
+            <!-- Mes ***************************** -->
+            <mat-form-field appearance="fill">
+              <mat-label>Mês</mat-label>
+              <input
+                matInput
+                formControlName="Dat_Mes"
+                type="number"
+                class="right-align"
+                required
+                [readonly] ="!operacaoInclusao"
+                matTooltip="Informe o mês do movimento"
+                placeholder="Digite o mês do movimento"
+              />
+              <!--Mensagens de Erro ---------------------------- -->
+            </mat-form-field>
+
+            <!-- ANO ***************************** -->
+            <mat-form-field appearance="fill">
+              <mat-label>Ano</mat-label>
+              <input
+                matInput
+                formControlName="Dat_Ano"
+                type="number"
+                class="right-align"
+                [readonly] ="!operacaoInclusao"
+                required
+                matTooltip="Informe o Ano do movimento com 4 digitos. Exemplo: 2021"
+                placeholder="Digite o Ano do movimento"
+              />
+            </mat-form-field>
+
+            <!-- PRODUTO ************************ -->
+            <mat-form-field appearance="fill">
+              <mat-label>Produto</mat-label>
+              <mat-select
+                formControlName="Cod_Produto"
+                matTooltip="Selecione um Produto"
+                [disabled] ="!operacaoInclusao"
+              >
+                <mat-option
+                  *ngFor="let produto of produtos"
+                  [value]="produto.Cod_Produto"
+
+                >
+                  {{ produto.Des_Produto }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <!-- COSIF  ************************* -->
+            <mat-form-field appearance="fill">
+              <mat-label>Cosif</mat-label>
+              <mat-select
+                formControlName="Cod_Cosif"
+                [disabled] ="!operacaoInclusao"
+                matTooltip="Selecione um código Cosif"
+              >
+                <mat-option [value]="0"></mat-option>
+                <mat-option
+                  *ngFor="let produtoCosif of produtosCosif"
+                  [value]="produtoCosif.Cod_Cosif"
+                >
+                  {{ produtoCosif.Cod_Cosif }} -
+                  {{ produtoCosif.Cod_Classificacao }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <!-- VALOR  ************************* -->
+            <mat-form-field appearance="fill">
+              <mat-label>Valor</mat-label>
+              <input
+                matInput
+                formControlName="Val_Valor"
+                type="number"
+                class="right-align"
+                [readonly] ="!operacaoInclusao"
+                required
+                placeholder="Digite o valor do movimento"
+              />
+            </mat-form-field>
+          </mat-card-content>
+          <mat-card-content>
+            <!-- Descricao  ************************* -->
+            <mat-form-field appearance="fill" hintLabel="Máximo 50 caracteres">
+              <mat-label>Textarea</mat-label>
+              <textarea
+                matInput
+                formControlName="Des_Descricao"
+                placeholder="Digite a descrição do movimento"
+                maxlength="50"
+                #input
+                [readonly] ="!operacaoInclusao"
+                required
+              ></textarea>
+              <mat-hint align="end">{{ input.value?.length || 0 }}/50</mat-hint>
+            </mat-form-field>
+          </mat-card-content>
+          <div style="width: 50%">
+            <mat-card-actions align="end">
+              <div class="button-row">
+                <button
+                  mat-raised-button
+                  color="primary"
+                  type="button"
+                  [disabled]="!operacaoInclusao"
+                  (click)="limparCampos()"
+                >
+                  Limpar &nbsp;<i class="material-icons right"
+                    >cleaning_services</i
+                  >
+                </button>
+                <button
+                  mat-raised-button
+                  color="primary"
+                  (click)="incluir()"
+                  type="button"
+                >
+                  {{ operacaoInclusao ? "Cancelar" : "Novo" }} &nbsp;<i
+                    class="material-icons right"
+                    >add_circle_outline</i
+                  >
+                </button>
+                <button
+                  type="submit"
+                  mat-raised-button
+                  color="primary"
+                  [disabled]="!operacaoInclusao || !formulario.valid"
+                >
+                  Incluir &nbsp;<i class="material-icons right">save</i>
+                </button>
+              </div>
+            </mat-card-actions>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div>
+      <mat-card-header>
+        <!-- <mat-label>Lista de movimentos manuais</mat-label> -->
+        <h2>Lista de movimentos manuais</h2>
+      </mat-card-header>
+    </div>
+
+    <!-- DIVISAO - TABELA-->
+    <div>
+      <mat-card-content>
+        <!-- <mat-form-field [hidden]="!movimentosManuais">
+        <input matInput (keyup)="lista($event.target.value)" placeholder="Pesquisar por nome (ou parte dele)..." />
+        </mat-form-field>
+      </div> -->
+
+        <table
+          mat-table
+          [dataSource]="movimentosManuais"
+          class="mat-elevation-z8"
+          [hidden]="!movimentosManuais"
+          matSort
+          (matSortChange)="lista()"
+          matSortActive="{{ defaultSortColumn }}"
+          matSortDirection="{{ defaultSortOrder }}"
+        >
+          <ng-container matColumnDef="Dat_Mes">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+              >Mês</mat-header-cell
+            >
+            <mat-cell *matCellDef="let movimento">
+              {{ movimento.Dat_Mes }}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Dat_Ano">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+              >Ano</mat-header-cell
+            >
+            <mat-cell *matCellDef="let movimento">{{
+              movimento.Dat_Ano
+            }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Cod_Produto">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+              >Código do Produto</mat-header-cell
+            >
+            <mat-cell *matCellDef="let movimento">{{
+              movimento.Cod_Produto
+            }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Produto.Des_Produto">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+              >Descrição do Produto</mat-header-cell
+            >
+            <mat-cell *matCellDef="let movimento">{{
+              movimento.Produto.Des_Produto
+            }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Num_Lancamento">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+              >NR Lançamento</mat-header-cell
+            >
+            <mat-cell *matCellDef="let movimento">{{
+              movimento.Num_Lancamento
+            }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Des_Descricao">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+              >Descrição</mat-header-cell
+            >
+            <mat-cell *matCellDef="let movimento">{{
+              movimento.Des_Descricao
+            }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Val_Valor">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+              >Valor</mat-header-cell
+            >
+            <mat-cell *matCellDef="let movimento">{{
+              movimento.Val_Valor | number: "1.2"
+            }}</mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="colunas"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: colunas"></mat-row>
+        </table>
+
+        <mat-paginator
+          [hidden]="!movimentosManuais"
+          (page)="getData($event)"
+          [pageSize]="10"
+          [pageSizeOptions]="[5,10, 20, 40]"
+          showFirstLastButtons
+        >
+        </mat-paginator>
+      </mat-card-content>
+    </div>
+  </mat-card>
+</div>

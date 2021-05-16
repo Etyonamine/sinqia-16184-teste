@@ -1,0 +1,374 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EntityFramework.CommonTools</name>
+    </assembly>
+    <members>
+        <member name="T:EntityFramework.CommonTools.ICreationAuditable`1">
+            <summary>
+            This interface is implemented by entities that is wanted
+            to store creation information (who and when created).
+            Creation time and creator user are automatically set when saving Entity to database.
+            </summary>
+        </member>
+        <member name="T:EntityFramework.CommonTools.ICreationAuditable">
+            <summary>
+            This interface is implemented by entities that is wanted
+            to store creation information (who and when created).
+            Creation time and creator user are automatically set when saving Entity to database.
+            </summary>
+        </member>
+        <member name="T:EntityFramework.CommonTools.IModificationAuditable`1">
+            <summary>
+            This interface is implemented by entities that is wanted
+            to store modification information (who and when modified lastly).
+            Properties are automatically set when updating the Entity.
+            </summary>
+        </member>
+        <member name="T:EntityFramework.CommonTools.IModificationAuditable">
+            <summary>
+            This interface is implemented by entities that is wanted
+            to store modification information (who and when modified lastly).
+            Properties are automatically set when updating the Entity.
+            </summary>
+        </member>
+        <member name="T:EntityFramework.CommonTools.IDeletionAuditable`1">
+            <summary>
+            This interface is implemented by entities which wanted
+            to store deletion information (who and when deleted).
+            </summary>
+        </member>
+        <member name="T:EntityFramework.CommonTools.IDeletionAuditable">
+            <summary>
+            This interface is implemented by entities which wanted
+            to store deletion information (who and when deleted).
+            </summary>
+        </member>
+        <member name="T:EntityFramework.CommonTools.IFullAuditable`1">
+            <summary>
+            This interface is implemented by entities which must be audited.
+            Related properties automatically set when saving/updating/deleting Entity objects.
+            </summary>
+        </member>
+        <member name="T:EntityFramework.CommonTools.IFullAuditable">
+            <summary>
+            This interface is implemented by entities which must be audited.
+            Related properties automatically set when saving/updating/deleting Entity objects.
+            </summary>
+        </member>
+        <member name="M:EntityFramework.CommonTools.DbContextExtensions.UpdateAuditableEntities``1(System.Data.Entity.DbContext,``0)">
+            <summary>
+            Populate special properties for all Auditable Entities in context.
+            </summary>
+        </member>
+        <member name="M:EntityFramework.CommonTools.DbContextExtensions.UpdateAuditableEntities(System.Data.Entity.DbContext,System.String)">
+            <summary>
+            Populate special properties for all Auditable Entities in context.
+            </summary>
+        </member>
+        <member name="M:EntityFramework.CommonTools.DbContextExtensions.UpdateTrackableEntities(System.Data.Entity.DbContext)">
+            <summary>
+            Populate special properties for all Trackable Entities in context.
+            </summary>
+        </member>
+        <member name="M:EntityFramework.CommonTools.DbContextExtensions.PreventPropertyOverwrite``1(System.Data.Entity.Infrastructure.DbEntityEntry,System.String)">
+            <summary>
+            If we set <see cref="P:System.Data.Entity.Infrastructure.DbEntityEntry.State"/> to <see cref="F:System.Data.Entity.EntityState.Modified"/> on entity with
+            empty <see cref="P:EntityFramework.CommonTools.ICreationTrackable.CreatedUtc"/> or <see cref="P:EntityFramework.CommonTools.ICreationAuditable.CreatorUserId"/>
+            we should not overwrite database values.
+            https://github.com/gnaeus/EntityFramework.CommonTools/issues/4
+            </summary>
+        </member>
+        <member name="M:EntityFramework.CommonTools.DbContextExtensions.UpdateConcurrentEntities(System.Data.Entity.DbContext)">
+            <summary>
+            Populate RowVersion propertiy of <see cref="T:EntityFramework.CommonTools.IConcurrencyCheckable`1"/>
+            Entities in context from client-side values.
+            </summary>
+            <remarks>
+            EF automatically detects if byde[] RowVersion is changed by reference (not only by value)
+            and gentrates code like 'DECLARE @p int; UPDATE [Table] SET @p = 0 WHERE RowWersion = ...'
+            </remarks>
+        </member>
+        <member name="M:EntityFramework.CommonTools.DbContextExtensions.SaveChangesIgnoreConcurrency(System.Data.Entity.DbContext,System.Int32)">
+            <summary>
+            Save changes regardless of <see cref="T:System.Data.Entity.Infrastructure.DbUpdateConcurrencyException"/>.
+            http://msdn.microsoft.com/en-us/data/jj592904.aspx
+            </summary>
+            <exception cref="T:System.Data.Entity.Infrastructure.DbUpdateConcurrencyException" />
+        </member>
+        <member name="M:EntityFramework.CommonTools.DbContextExtensions.SaveChangesIgnoreConcurrencyAsync(System.Data.Entity.DbContext,System.Int32)">
+            <summary>
+            Save changes regardless of <see cref="T:System.Data.Entity.Infrastructure.DbUpdateConcurrencyException"/>.
+            http://msdn.microsoft.com/en-us/data/jj592904.aspx
+            </summary>
+            <exception cref="T:System.Data.Entity.Infrastructure.DbUpdateConcurrencyException" />
+        </member>
+        <member name="M:EntityFramework.CommonTools.DbContextExtensions.ExecuteInTransaction``1(System.Data.Entity.DbContext,System.Func{``0})">
+            <summary>
+            Execute <paramref name="method"/> in existing transaction or create and use new transaction.
+            </summary>
+        </member>
+        <member name="M:EntityFramework.CommonTools.DbContextExtensions.ExecuteInTransaction``1(System.Data.Entity.DbContext,System.Func{System.Threading.Tasks.Task{``0}})">
+            <summary>
+            Execute <paramref name="asyncMethod"/> in existing transaction or create and use new transaction.
+            </summary>
+        </member>
+        <member name="M:EntityFramework.CommonTools.DbContextExtensions.SaveChangesWithTransactionLog(System.Data.Entity.DbContext,System.Func{System.Int32})">
+            <summary>
+            Wrapper for <see cref="M:System.Data.Entity.DbContext.SaveChanges"/> that saves <see cref="T:EntityFramework.CommonTools.TransactionLog"/> to DB.
+            </summary>
+        </member>
+        <member name="M:EntityFramework.CommonTools.DbContextExtensions.SaveChangesWithTransactionLogAsync(System.Data.Entity.DbContext,System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task{System.Int32}},System.Threading.CancellationToken)">
+            <summary>
+            Wrapper for <see cref="M:System.Data.Entity.DbContext.SaveChangesAsync(System.Threading.CancellationToken)"/>
+            that saves <see cref="T:EntityFramework.CommonTools.TransactionLog"/> to DB.
+            </summary>
+        </member>
+        <member name="M:EntityFramework.CommonTools.DbContextExtensions.WithoutChangeTracking(System.Data.Entity.DbContext)">
+            <summary>
+            Disposable region where <paramref name="dbContext"/> AutoDetectChanges is disabled.
+            </summary>
+        </member>
+        <member name="M:EntityFramework.CommonTools.DbContextExtensions.WithChangeTrackingOnce(System.Data.Entity.DbContext)">
+            <summary>
+            Run <see cref="M:System.Data.Entity.Infrastructure.DbChangeTracker.DetectChanges"/> once and return
+            disposable region where <paramref name="dbContext"/> AutoDetectChanges is disabled.
+            </summary>
+        </member>
+        <member name="M:EntityFramework.CommonTools.DbContextExtensions.GetTableAndSchemaName(System.Data.Entity.DbContext,System.Type)">
+            <summary>
+            Get corresponding table name and schema by <paramref name="entityType"/>
+            </summary>
+        </member>
+        <member name="M:EntityFramework.CommonTools.DbContextExtensions.GetTableAndSchemaNames(System.Data.Entity.DbContext,System.Type)">
+            <summary>
+            Get corresponding table name and schema by <paramref name="entityType"/>.
+            Use it if entity is splitted between multiple tables.
+            </summary>
+        </member>
+        <member name="M:EntityFramework.CommonTools.DbContextExtensions.GetTableAndSchemaNames(System.Type,System.Data.Entity.DbContext)">
+            <summary>
+            https://romiller.com/2014/04/08/ef6-1-mapping-between-types-tables/
+            </summary>
+        </member>
+        <member name="T:EntityFramework.CommonTools.ISoftDeletable">
+            <summary>
+            Used to standardize soft deleting entities. Soft-delete entities are not actually deleted,
+            marked as IsDeleted = true in the database, but can not be retrieved to the application.
+            </summary>
+        </member>
+        <member name="T:EntityFramework.CommonTools.ICreationTrackable">
+            <summary>
+            An entity can implement this interface if <see cref="P:EntityFramework.CommonTools.ICreationTrackable.CreatedUtc"/> of this entity must be stored.
+            <see cref="P:EntityFramework.CommonTools.ICreationTrackable.CreatedUtc"/> is automatically set when saving Entity to database.
+            </summary>
+        </member>
+        <member name="T:EntityFramework.CommonTools.IModificationTrackable">
+            <summary>
+            An entity can implement this interface if <see cref="P:EntityFramework.CommonTools.IModificationTrackable.UpdatedUtc"/> of this entity must be stored.
+            <see cref="P:EntityFramework.CommonTools.IModificationTrackable.UpdatedUtc"/> is automatically set when updating Entity.
+            </summary>
+        </member>
+        <member name="T:EntityFramework.CommonTools.IDeletionTrackable">
+            <summary>
+            An entity can implement this interface if <see cref="P:EntityFramework.CommonTools.IDeletionTrackable.DeletedUtc"/> of this entity must be stored.
+            <see cref="P:EntityFramework.CommonTools.IDeletionTrackable.DeletedUtc"/> is automatically set when deleting Entity.
+            </summary>
+        </member>
+        <member name="T:EntityFramework.CommonTools.IFullTrackable">
+            <summary>
+            This interface is implemented by entities which modification times must be tracked.
+            Related properties automatically set when saving/updating/deleting Entity objects.
+            </summary>
+        </member>
+        <member name="T:EntityFramework.CommonTools.IConcurrencyCheckable`1">
+            <summary>
+            An entity can implement this interface if it should use Optimistic Concurrency Check
+            with populating <see cref="P:EntityFramework.CommonTools.IConcurrencyCheckable`1.RowVersion"/> from client-side. Allowed types:
+            <para />
+            <typeparamref name="TRowVersion"/> is <see cref="T:byte[]"/>: 
+            RowVersion property should be decorated by [Timestamp] attribute.
+            RowVersion column should have ROWVERSION type in SQL Server. 
+            <para />
+            <para />
+            <typeparamref name="TRowVersion"/> is <see cref="T:System.Guid"/>: 
+            RowVersion property should be decorated by [ConcurrencyCheck] attribute.
+            It's value is generated by <see cref="M:System.Guid.NewGuid"/> during each save.
+            <para />
+            <typeparamref name="TRowVersion"/> is <see cref="T:System.Int64"/>: 
+            RowVersion property should be decorated by [ConcurrencyCheck]
+            and [DatabaseGenerated(DatabaseGeneratedOption.Computed)] attributes.
+            RowVersion column should be updated by trigger in DB:
+            <code>
+                CREATE TRIGGER TRG_MyTable_UPD
+                AFTER UPDATE ON MyTable
+                    WHEN old.RowVersion = new.RowVersion
+                BEGIN
+                    UPDATE MyTable
+                    SET RowVersion = RowVersion + 1;
+                END;
+            </code>
+            </summary>
+        </member>
+        <member name="M:EntityFramework.CommonTools.ExpressionExtensions.GetValue(System.Linq.Expressions.Expression)">
+            <summary>
+            Get computed value of Expression.
+            </summary>
+            <exception cref="T:System.InvalidOperationException" />
+        </member>
+        <member name="T:EntityFramework.CommonTools.JsonField`1">
+            <summary>
+            Utility structure for storing complex types as JSON strings in DB table.
+            </summary>
+        </member>
+        <member name="T:EntityFramework.CommonTools.AsQueryableExpander">
+            <summary>
+            <see cref="T:System.Linq.Expressions.ExpressionVisitor"/> that expands
+            <see cref="M:System.Linq.Queryable.AsQueryable``1(System.Collections.Generic.IEnumerable{``0})"/> inside Expression.
+            </summary>
+        </member>
+        <member name="F:EntityFramework.CommonTools.AsQueryableExpressionExpander.MethodReplacements">
+            <summary>
+            Key is method from <see cref="T:System.Linq.Queryable"/>, Value is method from <see cref="T:System.Linq.Enumerable"/>
+            </summary>
+        </member>
+        <member name="T:EntityFramework.CommonTools.DbAsyncEnumerator`1">
+            <summary>
+            Class for async-await style list enumeration support
+            (e.g. <see cref="M:System.Data.Entity.QueryableExtensions.ToListAsync(System.Linq.IQueryable)"/>)
+            </summary>
+        </member>
+        <member name="T:EntityFramework.CommonTools.ExtensionExpander">
+            <summary>
+            <see cref="T:System.Linq.Expressions.ExpressionVisitor"/> that expands <see cref="T:System.Linq.IQueryable`1"/> extension methods inside Expression.
+            </summary>
+        </member>
+        <member name="M:EntityFramework.CommonTools.QueryableExtensions.AsExpandable``1(System.Linq.IQueryable{``0})">
+            <summary>
+            Expand all <see cref="T:System.Linq.IQueryable`1"/> extension methods that marked by <see cref="T:EntityFramework.CommonTools.ExpandableAttribute"/>.
+            </summary>
+        </member>
+        <member name="M:EntityFramework.CommonTools.QueryableExtensions.AsVisitable``1(System.Linq.IQueryable{``0},System.Linq.Expressions.ExpressionVisitor[])">
+            <summary>
+            Wrap <see cref="T:System.Linq.IQueryable`1"/> to decorator that intercepts
+            IQueryable.Expression with provided <see cref="T:System.Linq.Expressions.ExpressionVisitor"/>.
+            </summary>
+        </member>
+        <member name="T:EntityFramework.CommonTools.VisitableQuery`1">
+            <summary>
+            An <see cref="T:System.Linq.IQueryable`1"/> wrapper that allows us to visit
+            the query's expression tree just before LINQ to SQL gets to it.
+            </summary>
+        </member>
+        <member name="M:EntityFramework.CommonTools.VisitableQueryProvider`1.System#Linq#IQueryProvider#CreateQuery``1(System.Linq.Expressions.Expression)">
+            <summary>
+            The following four methods first call ExpressionExpander to visit the expression tree,
+            then call upon the inner query to do the remaining work.
+            </summary>
+        </member>
+        <member name="M:EntityFramework.CommonTools.VisitorExtensions.Visit(System.Collections.Generic.IEnumerable{System.Linq.Expressions.ExpressionVisitor},System.Linq.Expressions.Expression)">
+            <summary>
+            Apply all <paramref name="visitors"/> to Expression one by one.
+            </summary>
+        </member>
+        <member name="T:EntityFramework.CommonTools.ISpecification`1">
+            <summary>
+            Specification pattren https://en.wikipedia.org/wiki/Specification_pattern.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:EntityFramework.CommonTools.Specification`1">
+            <summary>
+            Implementation of Specification pattren, that can be used with <see cref="T:System.Linq.IQueryable`1"/> expressions.
+            </summary>
+        </member>
+        <member name="M:EntityFramework.CommonTools.Specification`1.op_True(EntityFramework.CommonTools.Specification{`0})">
+            <remarks>
+            For user-defined conditional logical operators.
+            https://msdn.microsoft.com/en-us/library/aa691312(v=vs.71).aspx
+            </remarks>
+        </member>
+        <member name="M:EntityFramework.CommonTools.Specification`1.op_False(EntityFramework.CommonTools.Specification{`0})">
+            <remarks>
+            For user-defined conditional logical operators.
+            https://msdn.microsoft.com/en-us/library/aa691312(v=vs.71).aspx
+            </remarks>
+        </member>
+        <member name="T:EntityFramework.CommonTools.SpecificationExpander">
+            <summary>
+            <see cref="T:System.Linq.Expressions.ExpressionVisitor"/> that expands <see cref="T:EntityFramework.CommonTools.ISpecification`1"/> inside Expression.
+            </summary>
+        </member>
+        <member name="T:EntityFramework.CommonTools.ITransactionLoggable">
+            <summary>
+            This interface is implemented by entities which wanted
+            to store all modifications in <see cref="T:EntityFramework.CommonTools.TransactionLog"/>.
+            </summary>
+        </member>
+        <member name="P:EntityFramework.CommonTools.TransactionLog.Id">
+            <summary>
+            Auto incremented primary key.
+            </summary>
+        </member>
+        <member name="P:EntityFramework.CommonTools.TransactionLog.TransactionId">
+            <summary>
+            An ID of all changes that captured during single <see cref="M:System.Data.Entity.DbContext.SaveChanges"/> call.
+            </summary>
+        </member>
+        <member name="P:EntityFramework.CommonTools.TransactionLog.CreatedUtc">
+            <summary>
+            UTC timestamp of <see cref="M:System.Data.Entity.DbContext.SaveChanges"/> call.
+            </summary>
+        </member>
+        <member name="P:EntityFramework.CommonTools.TransactionLog.Operation">
+            <summary>
+            "INS", "UPD" or "DEL". Not null.
+            </summary>
+        </member>
+        <member name="P:EntityFramework.CommonTools.TransactionLog.Schema">
+            <summary>
+            Schema for captured entity. Can be null for SQLite.
+            </summary>
+        </member>
+        <member name="P:EntityFramework.CommonTools.TransactionLog.TableName">
+            <summary>
+            Table for captured entity. Not null.
+            </summary>
+        </member>
+        <member name="P:EntityFramework.CommonTools.TransactionLog.EntityType">
+            <summary>
+            Assembly qualified type name of captured entity. Not null.
+            </summary>
+        </member>
+        <member name="P:EntityFramework.CommonTools.TransactionLog.EntityJson">
+            <summary>
+            The captured entity serialized to JSON by Jil serializer. Not null.
+            </summary>
+        </member>
+        <member name="P:EntityFramework.CommonTools.TransactionLog.Entity">
+            <summary>
+            Lazily deserialized entity object.
+            Type for deserialization is taken from <see cref="P:EntityFramework.CommonTools.TransactionLog.EntityType"/> property.
+            All navigation properties and collections will be empty.
+            </summary>
+        </member>
+        <member name="M:EntityFramework.CommonTools.TransactionLog.GetEntity``1">
+            <summary>
+            Get strongly typed entity from transaction log.
+            Can be null if TEntity and type from <see cref="P:EntityFramework.CommonTools.TransactionLog.EntityType"/> property are incompatible.
+            All navigation properties and collections will be empty.
+            </summary>
+        </member>
+        <member name="T:EntityFramework.CommonTools.TransactionLogContext">
+            <summary>
+            Utility for capturing transaction logs from <see cref="M:System.Data.Entity.DbContext.SaveChanges"/>.
+            Tracked entities must implement <see cref="T:EntityFramework.CommonTools.ITransactionLoggable"/> interface.
+            </summary>
+        </member>
+        <member name="M:EntityFramework.CommonTools.ModelBuilderExtensions.UseTransactionLog(System.Data.Entity.DbModelBuilder,System.String,System.String)">
+            <summary>
+            Register <see cref="T:EntityFramework.CommonTools.TransactionLog"/> table in <see cref="T:System.Data.Entity.DbContext"/>.
+            </summary>
+        </member>
+    </members>
+</doc>
