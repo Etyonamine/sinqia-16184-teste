@@ -1,0 +1,19 @@
+{
+  "FilePath": "c:\\Sinqia\\sinqia-16184-teste\\backend-aplicacao\\Sinqia\\Sinqia.WebAPI\\Sinqia.WebAPI.csproj",
+  "Configuration": {
+    "ConfigurationName": "UnsupportedRazor",
+    "LanguageVersion": "1.0",
+    "Extensions": [
+      {
+        "ExtensionName": "UnsupportedRazorExtension"
+      }
+    ]
+  },
+  "ProjectWorkspaceState": {
+    "TagHelpers": [],
+    "CSharpLanguageVersion": 703
+  },
+  "RootNamespace": null,
+  "Documents": [],
+  "SerializationFormat": "0.2"
+}
