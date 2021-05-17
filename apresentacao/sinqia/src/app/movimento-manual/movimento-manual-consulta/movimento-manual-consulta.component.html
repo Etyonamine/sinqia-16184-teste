@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>Consultar</h1>
+<div mat-dialog-content>
+  <p>Por favor, informe o mês e ano que deseja Consultar</p>
+  <mat-form-field>
+    <mat-label>Mês</mat-label>
+    <input
+      matInput
+      [(ngModel)]="data.Dat_Mes"
+      type="number"
+      class="right-align"
+      matTooltip="Informe o Ano do movimento com 4 digitos. Exemplo: 2021"
+      placeholder="Digite o Ano do movimento"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Ano</mat-label>
+    <input
+      matInput
+      [(ngModel)]="data.Dat_Ano"
+      type="number"
+      class="right-align"
+      matTooltip="Informe o mês do movimento"
+      placeholder="Digite o mês do movimento"
+    />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button mat-raised-button color="primary" (click)="onNoClick()">
+    Voltar &nbsp;<i class="material-icons right">keyboard_return</i>
+  </button>
+  <button
+    mat-button
+    [mat-dialog-close]="data"
+    cdkFocusInitial
+    mat-raised-button
+    color="primary"
+  >
+    Confirmar &nbsp;<i class="material-icons right">check</i>
+  </button>
+</div>

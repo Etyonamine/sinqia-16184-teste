@@ -25,7 +25,9 @@ export class MsgAlertService {
       case ('erro'):
         nomeClasse = 'error-snackbar';
         break;
-
+      case ('informacao'):
+        nomeClasse = 'info-snackbar';
+        break;
       default:
         nomeClasse = 'sucess-snackbar';
         break;
@@ -46,6 +48,9 @@ export class MsgAlertService {
     this.mensagemAlerta(msg, 'sucesso');
   }
 
+  mensagemInformacao(msg: string) {
+    this.mensagemAlerta(msg, 'informacao');
+  }
   mensagemErro(msg: string) {
     this.mensagemAlerta(msg, 'erro');
   }

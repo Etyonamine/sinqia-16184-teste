@@ -217,11 +217,22 @@
           <div style="width: 50%">
             <mat-card-actions align="end">
               <div class="button-row">
+                <button mat-raised-button
+                color="primary"
+                type="button"
+                [disabled]="operacaoInclusao"
+                (click)="openDialogConsulta()"
+                >
+                  Consultar &nbsp;<i class="material-icons right"
+                  >manage_search</i
+                >
+                </button>
                 <button
                   mat-raised-button
                   color="primary"
                   type="button"
-                  [disabled]="!operacaoInclusao"
+                  [disabled]="habilitarBotaoLimpar()"
+                  matTooltip="Limpar os campos e atualizar a lista"
                   (click)="limparCampos()"
                 >
                   Limpar &nbsp;<i class="material-icons right"
@@ -244,6 +255,8 @@
                   mat-raised-button
                   color="primary"
                   [disabled]="!operacaoInclusao || !formulario.valid"
+                  matTooltip="O botão será habilitado após todos os campos estiverem preenchidos."
+
                 >
                   Incluir &nbsp;<i class="material-icons right">save</i>
                 </button>

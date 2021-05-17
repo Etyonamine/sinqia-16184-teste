@@ -1,3 +1,4 @@
+import { MovimentoManualConsultaComponent } from './movimento-manual-consulta/movimento-manual-consulta.component';
 import { MsgAlertService } from './../shared/msg-alert-modal/msg-alert.service';
 import { ProdutoService } from './../produto/produto.service';
 
@@ -13,6 +14,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Produto } from '../produto/produto';
 import { map, switchMap } from 'rxjs/operators';
 import { ProdutoCosif } from '../produto/produto-cosif/produto-cosif';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
 
@@ -25,7 +27,7 @@ export class MovimentoManualComponent implements OnInit, OnDestroy {
   //*** variaveis utiizados no formulario */
   formulario: FormGroup;
   operacaoInclusao: boolean = false;
-
+  //colunas da tabela
   public colunas: string[] = ["Dat_Mes",
     "Dat_Ano",
     "Cod_Produto",
@@ -34,6 +36,11 @@ export class MovimentoManualComponent implements OnInit, OnDestroy {
     "Des_Descricao",
     "Val_Valor"
   ];
+
+  //variaveis da consulta
+  dat_mes_con: string;
+  dat_ano_con: string;
+
 
   //objetos utilizados
   produtos: Array<Produto>;
@@ -48,13 +55,13 @@ export class MovimentoManualComponent implements OnInit, OnDestroy {
   public defaultSortColumn: string = "dat_mes";
   public defaultSortOrder: string = "asc";
 
-  defaultFilterColumn: Array<string> =["dat_mes"];
+  defaultFilterColumn: Array<string> = ["dat_mes"];
   filterQuery: Array<string> = null;
 
   //inscricoes ****************
   inscricaoMovimento$: Subscription;
   inscricaoProduto$: Subscription;
-  inscricaoSalvar$ : Subscription;
+  inscricaoSalvar$: Subscription;
   //emmitter ********
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -63,7 +70,8 @@ export class MovimentoManualComponent implements OnInit, OnDestroy {
   constructor(private movimentoService: MovimentoManualService,
     private formBuilder: FormBuilder,
     private produtoServico: ProdutoService,
-    private alertModalServico: MsgAlertService) { }
+    private alertModalServico: MsgAlertService,
+    public dialog: MatDialog) { }
 
   //ngOnInit e ngOnDestroy *********************************
   ngOnInit(): void {
@@ -78,7 +86,7 @@ export class MovimentoManualComponent implements OnInit, OnDestroy {
       Val_Valor: [null, [Validators.required]],
       Des_Descricao: [null, [Validators.required, Validators.maxLength(50)]]
     })
-
+    this.formulario.disable();
     //listar produtos
     this.listaProduto();
     this.formulario.get('Cod_Produto')
@@ -106,6 +114,7 @@ export class MovimentoManualComponent implements OnInit, OnDestroy {
       });
 
   }
+
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
@@ -115,7 +124,7 @@ export class MovimentoManualComponent implements OnInit, OnDestroy {
     if (this.inscricaoProduto$) {
       this.inscricaoProduto$.unsubscribe()
     }
-    if (this.inscricaoSalvar$){
+    if (this.inscricaoSalvar$) {
       this.inscricaoSalvar$.unsubscribe();
     }
   }
@@ -128,13 +137,17 @@ export class MovimentoManualComponent implements OnInit, OnDestroy {
           console.error(error);
         })
   }
+
   lista(query: string[] = null) {
     var pageEvent = new PageEvent();
     pageEvent.pageIndex = this.defaultPageIndex;
     pageEvent.pageSize = this.defaultPageSize;
 
     if (query) {
+
       this.filterQuery = query;
+
+
     }
 
     this.getData(pageEvent);
@@ -160,8 +173,13 @@ export class MovimentoManualComponent implements OnInit, OnDestroy {
       this.paginator.length = result.TotalCount;
       this.paginator.pageIndex = result.PageIndex;
       this.paginator.pageSize = result.PageSize;
+      if (result.Data.length == 0){
+        this.handlerMsgInformacao("Não foi encontrado nenhum registro!");
+      }
+
     }, error => {
       console.error(error);
+      this.handlerMsgErro('Ocorreu um erro!Tente novamente mais tarde.')
     });
   }
 
@@ -170,35 +188,118 @@ export class MovimentoManualComponent implements OnInit, OnDestroy {
     this.movimentoManual = Object.assign({}, this.formulario.value);
     this.movimentoManual.Cod_Usuario = 'TESTE';
     this.movimentoService.save(this.movimentoManual)
-                          .subscribe(sucesso => {
-                            if (sucesso){
-                              this.limparCampos();
-                              this.lista();
-                              this.operacaoInclusao = true; //manter o fluxo de inclusao
-                              this.handlerMsgSucesso("Movimento incluído com sucesso!");
-                            }else{
-                              this.handlerMsgErro("Ocorreu um erro na tentativa de incluir o cadastro.");
-                            }
-                          },
-                            error => {
-                              console.error(error);
-                              this.handlerMsgErro("Ocorreu um erro na tentativa de incluir o cadastro.");
-                            });
+      .subscribe(sucesso => {
+        if (sucesso) {
+          this.limparCampos();
+          this.lista();
+          this.operacaoInclusao = true; //manter o fluxo de inclusao
+          this.handlerMsgSucesso("Movimento incluído com sucesso!");
+        } else {
+          this.handlerMsgErro("Ocorreu um erro na tentativa de incluir o cadastro.");
+        }
+      },
+        error => {
+          this.handlerMsgErro("Ocorreu um erro na tentativa de incluir o cadastro.");
+        });
   }
 
   incluir() {
-    this.limparCampos();
+
     this.operacaoInclusao = !this.operacaoInclusao;
+    this.limparCampos();
   }
+
   limparCampos() {
     this.formulario.reset();
+    this.filterQuery = null;
+    this.lista();
+    this.habilitarDesabilitarFormulario()
 
   }
+
   handlerMsgSucesso(msg: string) {
     this.alertModalServico.mensagemSucesso(msg);
   }
+
   handlerMsgErro(msg: string) {
     this.alertModalServico.mensagemErro(msg);
   }
+  handlerMsgInformacao(msg: string) {
+    this.alertModalServico.mensagemInformacao(msg);
+  }
 
+  openDialogConsulta(): void {
+    const dialogRef = this.dialog.open(MovimentoManualConsultaComponent, {
+      width: '450px',
+      data: { mes: this.dat_mes_con, ano: this.dat_ano_con }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      this.dat_mes_con = result.Dat_Mes;
+      this.dat_ano_con = result.Dat_Ano;
+      //validar informações
+      if (!this.validarCompetenciaConsulta()) {
+        return;
+      }
+      //montar filtros
+      //limpando a variavel colunas
+      this.defaultFilterColumn.splice(0, this.defaultFilterColumn.length);
+      this.defaultFilterColumn.push("Dat_Mes");
+      this.defaultFilterColumn.push("Dat_Ano");
+      //limpando a variavel query
+      var valores: Array<string>;
+      valores = [this.dat_mes_con, this.dat_ano_con];
+
+
+      //chamado a rotina de consulta
+      this.lista(valores);
+      this.formulario.get('Dat_Mes').setValue(this.dat_mes_con);
+      this.formulario.get('Dat_Ano').setValue(this.dat_ano_con);
+
+    });
+  }
+  validarCompetenciaConsulta() {
+    //validar as informações
+    //mes
+    if (this.dat_mes_con === '' || this.dat_mes_con === null) {
+      this.handlerMsgErro('Mês não informado para a consulta!')
+      return false;
+    } else {
+      var mesAux: number = +this.dat_mes_con;
+      if (mesAux < 0 || mesAux > 12) {
+        this.handlerMsgErro('Mês inválido informado para a consulta!');
+        return false;
+      }
+    }
+    //ano
+    if (this.dat_ano_con === '' || this.dat_ano_con === null) {
+      this.handlerMsgErro('Ano não informado para a consulta!')
+      return false;
+    } else {
+      var mesAux: number = +this.dat_ano_con;
+      if (mesAux < 1900) {
+        this.handlerMsgErro('Ano inválido informado para a consulta!');
+        return false;
+      }
+    }
+    return true;
+  }
+  habilitarBotaoLimpar() {
+    if (this.operacaoInclusao) {
+      return false;
+    } else {
+      if (this.formulario.get('Dat_Mes').value != null && this.formulario.get('Dat_Ano').value != null) {
+        return false;
+      }
+      return true;
+    }
+  }
+  habilitarDesabilitarFormulario() {
+    if (this.operacaoInclusao) {
+      this.formulario.enable();
+    } else {
+      this.formulario.disable();
+    }
+  }
 }

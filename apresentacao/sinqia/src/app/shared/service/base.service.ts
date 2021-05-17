@@ -72,9 +72,17 @@ export class BaseService<T> {
     return this.http.post<boolean>(url,item,{headers});
   }
   montarParamHttpArrayToString (array : Array<String>){
-    var retorno : string;
+    var retorno : string = '';
+
     for (let i=0; i < array.length;i++){
-      retorno = retorno + '|';    }
+
+      if (retorno =='' ){
+        retorno =  array[i].toString() + '|' ;
+      }else{
+
+        retorno += (i== (array.length-1)) ? array[i].toString() : ( array[i].toString()+ '|');
+      }
+    }
     return retorno;
   }
 

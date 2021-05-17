@@ -7,12 +7,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MovimentoManualComponent } from './movimento-manual.component';
+import { MovimentoManualConsultaComponent } from './movimento-manual-consulta/movimento-manual-consulta.component';
 
 
 
 @NgModule({
   declarations:[
-    MovimentoManualComponent
+    MovimentoManualComponent,
+    MovimentoManualConsultaComponent
   ],
   imports: [
     CommonModule,
