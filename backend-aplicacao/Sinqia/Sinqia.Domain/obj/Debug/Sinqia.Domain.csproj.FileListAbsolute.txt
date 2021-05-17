@@ -7,6 +7,7 @@ C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.Domain\bin\Debug\En
 C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.Domain\bin\Debug\Jil.dll
 C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.Domain\bin\Debug\Newtonsoft.Json.dll
 C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.Domain\bin\Debug\Sigil.dll
+C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.Domain\bin\Debug\System.Linq.Dynamic.Core.dll
 C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.Domain\bin\Debug\EntityFramework.xml
 C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.Domain\bin\Debug\EntityFramework.CommonTools.pdb
 C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.Domain\bin\Debug\EntityFramework.CommonTools.xml
@@ -15,13 +16,12 @@ C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.Domain\bin\Debug\Ji
 C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.Domain\bin\Debug\Jil.xml
 C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.Domain\bin\Debug\Newtonsoft.Json.xml
 C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.Domain\bin\Debug\Sigil.xml
+C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.Domain\bin\Debug\System.Linq.Dynamic.Core.pdb
+C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.Domain\bin\Debug\System.Linq.Dynamic.Core.xml
+C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.Domain\obj\Debug\Sinqia.Domain.csprojAssemblyReference.cache
 C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.Domain\obj\Debug\Sinqia.Domain.Migrations.InitialCreate.resources
 C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.Domain\obj\Debug\Sinqia.Domain.csproj.GenerateResource.cache
 C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.Domain\obj\Debug\Sinqia.Domain.csproj.CoreCompileInputs.cache
 C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.Domain\obj\Debug\Sinqia.Domain.csproj.CopyComplete
 C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.Domain\obj\Debug\Sinqia.Domain.dll
 C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.Domain\obj\Debug\Sinqia.Domain.pdb
-C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.Domain\obj\Debug\Sinqia.Domain.csprojAssemblyReference.cache
-C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.Domain\bin\Debug\System.Linq.Dynamic.Core.dll
-C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.Domain\bin\Debug\System.Linq.Dynamic.Core.pdb
-C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.Domain\bin\Debug\System.Linq.Dynamic.Core.xml

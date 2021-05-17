@@ -21,6 +21,7 @@ namespace Sinqia.WebAPI.Controllers
         //{
         //    return _iRepositorio.Lista();
         //}
+         
         [HttpGet]
         public ApiResult<MovimentoManual> Lista(int pageIndex = 0,
                                                 int pageSize = 0,

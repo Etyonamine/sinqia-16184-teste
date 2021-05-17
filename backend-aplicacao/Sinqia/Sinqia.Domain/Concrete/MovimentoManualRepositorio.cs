@@ -74,7 +74,8 @@ namespace Sinqia.Domain.Concrete
                                                           string filterColumn = null,
                                                           string filterQuery = null)
         {
-             
+            string[] filterColumnArray = filterColumn != null ? filterColumn.Split('|'):null;
+            string[] filterQueryArray = filterQuery != null ? filterQuery.Split('|') : null;
 
             return ApiResult<MovimentoManual>.Create(
                dbContext.MovimentosManuais.Include("Produto"),
@@ -82,8 +83,8 @@ namespace Sinqia.Domain.Concrete
                pageSize,
                sortColumn,
                sortOrder,
-               filterColumn,
-               filterQuery
+               filterColumnArray,
+               filterQueryArray
                );
 
       

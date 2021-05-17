@@ -13,8 +13,8 @@ export class BaseService<T> {
     pageSize: number,
     sortColumn: string,
     sortOrder: string,
-    filterColumn: string,
-    filterQuery: string): Observable<ApiResult> {
+    filterColumn:Array<string>,
+    filterQuery: Array<string>): Observable<ApiResult> {
 
 
         var params = new HttpParams()
@@ -23,12 +23,14 @@ export class BaseService<T> {
           .set("sortColumn", sortColumn)
           .set("sortOrder", sortOrder);
 
-        if (filterQuery) {
+        if (filterQuery!= null) {
+          var filterColumnString = this.montarParamHttpArrayToString(filterColumn);
+          var filterQueryString =  this.montarParamHttpArrayToString(filterQuery);
           params = params
-            .set("filterColumn", filterColumn)
-            .set("filterQuery", filterQuery);
+            .set("filterColumn", filterColumnString)
+            .set("filterQuery", filterQueryString);
         }
-    return this.http.get<ApiResult>(this.API_URL, { params }).pipe(take(1));
+    return this.http.get<ApiResult>(this.API_URL, {  params }).pipe(take(1));
   }
 
   list<T>(): Observable<T>{
@@ -69,4 +71,11 @@ export class BaseService<T> {
     var url = this.API_URL + '/IsDupe';
     return this.http.post<boolean>(url,item,{headers});
   }
+  montarParamHttpArrayToString (array : Array<String>){
+    var retorno : string;
+    for (let i=0; i < array.length;i++){
+      retorno = retorno + '|';    }
+    return retorno;
+  }
+
 }

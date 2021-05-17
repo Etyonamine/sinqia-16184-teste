@@ -60,6 +60,7 @@ C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.WebAPI\bin\System.W
 C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.WebAPI\bin\System.Web.WebPages.Razor.dll
 C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.WebAPI\bin\WebActivatorEx.dll
 C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.WebAPI\bin\WebGrease.dll
+C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.WebAPI\bin\System.Linq.Dynamic.Core.dll
 C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.WebAPI\bin\Sinqia.Domain.pdb
 C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.WebAPI\bin\Sinqia.Domain.dll.config
 C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.WebAPI\bin\Castle.Core.xml
@@ -90,6 +91,8 @@ C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.WebAPI\bin\System.W
 C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.WebAPI\bin\System.Web.WebPages.Deployment.xml
 C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.WebAPI\bin\System.Web.WebPages.Razor.xml
 C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.WebAPI\bin\Antlr3.Runtime.pdb
+C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.WebAPI\bin\System.Linq.Dynamic.Core.pdb
+C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.WebAPI\bin\System.Linq.Dynamic.Core.xml
 C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.WebAPI\bin\pt-br\System.Net.Http.Formatting.resources.dll
 C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.WebAPI\bin\pt-br\System.Web.Helpers.resources.dll
 C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.WebAPI\bin\pt-br\System.Web.Http.resources.dll
@@ -105,6 +108,3 @@ C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.WebAPI\obj\Debug\Si
 C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.WebAPI\obj\Debug\Sinqia.WebAPI.csproj.CopyComplete
 C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.WebAPI\obj\Debug\Sinqia.WebAPI.dll
 C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.WebAPI\obj\Debug\Sinqia.WebAPI.pdb
-C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.WebAPI\bin\System.Linq.Dynamic.Core.dll
-C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.WebAPI\bin\System.Linq.Dynamic.Core.pdb
-C:\Sinqia\sinqia-16184-teste\backend-aplicacao\Sinqia\Sinqia.WebAPI\bin\System.Linq.Dynamic.Core.xml

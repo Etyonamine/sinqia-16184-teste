@@ -15,8 +15,8 @@ namespace Sinqia.Domain.Concrete
             int pageSize,
             string sortColumn,
             string sortOrder,
-            string filterColumn,
-            string filterQuery
+            string[] filterColumn,
+            string[] filterQuery
             )
         {
 
@@ -39,20 +39,62 @@ namespace Sinqia.Domain.Concrete
             int pageSize,
             string sortColumn = null,
             string sortOrder = null,
-            string filterColumn = null,
-            string filterQuery = null
+            string[] filterColumn = null,
+            string[] filterQuery = null
 
            )
         {
-            if (!String.IsNullOrEmpty(filterColumn) &&
-                 !String.IsNullOrEmpty(filterQuery) &&
-                  IsValidProperty(filterColumn))
+            //Filtros por colunas
+            if (filterColumn!=null && filterQuery != null)
             {
-                source = source.Where(
-                    String.Format("{0}.toUpper().Contains(@0)",
-                    filterColumn),
-                    filterQuery.ToUpper());
+                if (filterColumn.Count() == 1 && filterQuery.Count() == 1)
+                {
+                    //com  1 parametro
+                    if (!String.IsNullOrEmpty(filterColumn[0]) &&
+                         !String.IsNullOrEmpty(filterQuery[0]) &&
+                          IsValidProperty(filterColumn[0]))
+                    {
+                        source = source.Where(
+                            String.Format("{0}.toUpper().Contains(@0)",
+                            filterColumn[0]),
+                            filterQuery[0].ToUpper());
+                    }
+                }else if(filterColumn.Count() == 2 && filterQuery.Count() == 2)
+                {
+                    //validar os campos 
+                    bool columnsOk = true;
+                    for (int i=0; i < filterColumn.Count(); i++)
+                    {
+                        if (String.IsNullOrEmpty(filterColumn[i]) ||
+                        String.IsNullOrEmpty(filterQuery[i]) &&
+                         !IsValidProperty(filterColumn[i]))
+                        {
+                            columnsOk = false;
+                            break;
+                        }
+                    }
+
+                
+               
+                    if (columnsOk)
+                    {
+                        //com  2 parametro                 
+                        source = source.Where(
+                                            String.Format("{0} = @0 ",
+                                            filterColumn[0]),
+                                            filterQuery[0].ToString())
+                                   .Where(
+                                            String.Format("{0} = @0 ",
+                                            filterColumn[1]),
+                                            filterQuery[1].ToString());
+
+                    }                   
+                 
+                }     
             }
+             
+            
+
             var count = source.Count();
 
             if (!String.IsNullOrEmpty(sortColumn) && IsValidProperty(sortColumn))
@@ -125,9 +167,9 @@ namespace Sinqia.Domain.Concrete
 
         public string SortOrder { get; set; }
 
-        public string FilterColumn { get; set; }
+        public string[] FilterColumn { get; set; }
 
-        public string FilterQuery { get; set; }
+        public string[] FilterQuery { get; set; }
 
         #endregion
     }

@@ -48,8 +48,8 @@ export class MovimentoManualComponent implements OnInit, OnDestroy {
   public defaultSortColumn: string = "dat_mes";
   public defaultSortOrder: string = "asc";
 
-  defaultFilterColumn: string = "dat_mes";
-  filterQuery: string = null;
+  defaultFilterColumn: Array<string> =["dat_mes"];
+  filterQuery: Array<string> = null;
 
   //inscricoes ****************
   inscricaoMovimento$: Subscription;
@@ -128,7 +128,7 @@ export class MovimentoManualComponent implements OnInit, OnDestroy {
           console.error(error);
         })
   }
-  lista(query: string = null) {
+  lista(query: string[] = null) {
     var pageEvent = new PageEvent();
     pageEvent.pageIndex = this.defaultPageIndex;
     pageEvent.pageSize = this.defaultPageSize;

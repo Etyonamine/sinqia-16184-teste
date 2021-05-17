@@ -6,6 +6,6 @@ export interface ApiResult<T> {
   TotalPages: number;
   SortColumn: string;
   SortOrder: string;
-  FilterColumn: string;
-  FilterQuery: string;
+  FilterColumn: Array<string>;
+  FilterQuery: Array<string>;
 }
