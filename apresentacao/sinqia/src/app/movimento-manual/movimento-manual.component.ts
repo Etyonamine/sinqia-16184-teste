@@ -190,9 +190,11 @@ export class MovimentoManualComponent implements OnInit, OnDestroy {
     this.movimentoService.save(this.movimentoManual)
       .subscribe(sucesso => {
         if (sucesso) {
+          this.operacaoInclusao = false;
           this.limparCampos();
           this.lista();
-          this.operacaoInclusao = true; //manter o fluxo de inclusao
+
+          // this.operacaoInclusao = true; //manter o fluxo de inclusao
           this.handlerMsgSucesso("Movimento incluído com sucesso!");
         } else {
           this.handlerMsgErro("Ocorreu um erro na tentativa de incluir o cadastro.");
@@ -210,11 +212,11 @@ export class MovimentoManualComponent implements OnInit, OnDestroy {
   }
 
   limparCampos() {
-    this.formulario.reset();
+
     this.filterQuery = null;
     this.lista();
     this.habilitarDesabilitarFormulario()
-
+    this.formulario.reset();
   }
 
   handlerMsgSucesso(msg: string) {

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { environment } from './../../environments/environment.prod';
+import { environment } from './../../environments/environment';
 import { BaseService } from './../shared/service/base.service';
 import { Injectable } from '@angular/core';
 import { MovimentoManual } from './movimento-manual';

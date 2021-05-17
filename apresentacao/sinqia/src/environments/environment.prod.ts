@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
-  API: 'https://localhost:44384/api/'
-  
+  API:'http://localhost/sinqia-servico/api/' 
+  // API: 'https://localhost:44384/api/'
+
 };
