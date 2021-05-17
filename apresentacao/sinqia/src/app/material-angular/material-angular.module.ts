@@ -20,7 +20,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule} from '@angular/material/radio';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDividerModule} from '@angular/material/divider';
-
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
   declarations: [],
@@ -36,6 +36,7 @@ import { MatDividerModule} from '@angular/material/divider';
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatListModule,
     MatMenuModule,
     MatNativeDateModule,
     MatPaginatorModule,
